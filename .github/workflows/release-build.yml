@@ -13,8 +13,8 @@ on:
   workflow_dispatch:
 
 env:
-  PHP_VERSION: 8.4
-  MICRO_VERSION: 8.4.11
+  PHP_VERSION: 8.3
+  MICRO_VERSION: 8.3.29
 
 jobs:
   build-release-artifacts:
@@ -26,19 +26,7 @@ jobs:
           - name: "linux-x86_64"
             os: "ubuntu-latest"
             filename: "spc-linux-x86_64.tar.gz"
-          - name: "macos-x86_64"
-            os: "macos-15-intel"
-            filename: "spc-macos-x86_64.tar.gz"
-          - name: "linux-aarch64"
-            os: "ubuntu-latest"
-            filename: "spc-linux-aarch64.tar.gz"
-          - name: "macos-aarch64"
-            os: "macos-14"
-            filename: "spc-macos-aarch64.tar.gz"
-          - name: "windows-x64"
-            os: "ubuntu-latest"
-            filename: "spc-windows-x64.exe"
-    steps:
+  steps:
       - name: "Checkout"
         uses: "actions/checkout@v4"
 
@@ -52,7 +40,7 @@ jobs:
           tools: composer:v2
           php-version: "${{ env.PHP_VERSION }}"
           ini-values: memory_limit=-1
-          extensions: curl, openssl, mbstring
+          extensions: curl, openssl, mbstring, yaml
 
       - name: "Get Composer Cache Directory"
         id: composer-cache
